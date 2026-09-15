@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 const API_BASE_URL = import.meta.env.VITE_API_URL ?? 'http://127.0.0.1:8002';
+=======
+const API_BASE_URL = import.meta.env.VITE_API_URL ?? 'http://127.0.0.1:8000';
+>>>>>>> Madhu
 
 export class ApiError extends Error {
 	status: number;
@@ -11,6 +15,7 @@ export class ApiError extends Error {
 }
 
 export async function apiRequest<T>(path: string, options: RequestInit = {}): Promise<T> {
+<<<<<<< HEAD
 	let response: Response;
 	try {
 		response = await fetch(`${API_BASE_URL}${path}`, {
@@ -24,6 +29,15 @@ export async function apiRequest<T>(path: string, options: RequestInit = {}): Pr
 		const reason = cause instanceof Error && cause.message ? ` (${cause.message})` : '';
 		throw new ApiError(`Cannot connect to the backend at ${API_BASE_URL}${path}${reason}`, 0);
 	}
+=======
+	const response = await fetch(`${API_BASE_URL}${path}`, {
+		...options,
+		headers: {
+			'Content-Type': 'application/json',
+			...(options.headers ?? {}),
+		},
+	});
+>>>>>>> Madhu
 
 	const body = await response.json().catch(() => null);
 	if (!response.ok) {

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { useState } from 'react';
 import { AppBar, Box, IconButton, Toolbar, Typography } from '@mui/material';
 import { Menu } from '@mui/icons-material';
@@ -8,12 +9,19 @@ import Register from '../pages/Register';
 import { AdminDashboard } from '../pages/AdminDashboard';
 import { Dashboard as WorkspaceDashboard, InsightsPage, ProjectDetails, Projects, SettingsPage, Tasks, TeamPage } from '../pages/WorkspacePages';
 import Sidebar, { drawerWidth } from '../src/components/Sidebar';
+=======
+import { Navigate, Outlet, Route, Routes } from 'react-router-dom';
+import { Box, Button, Stack, Typography } from '@mui/material';
+import { useAuth } from '../context/AuthContext';
+import Login from '../pages/Login';
+>>>>>>> Madhu
 
 function ProtectedRoute() {
   const { token } = useAuth();
   return token ? <Outlet /> : <Navigate to="/login" replace />;
 }
 
+<<<<<<< HEAD
 function AdminRoute() {
   const { token, user } = useAuth();
   if (!token) return <Navigate to="/login" replace />;
@@ -34,4 +42,13 @@ function RoleLanding({ title, detail }: { title: string; detail: string }) {
 
 export default function App() {
   return <Routes><Route path="/login" element={<Login />} /><Route path="/register" element={<Register />} /><Route element={<AdminRoute />}><Route path="/admin-dashboard/*" element={<AdminDashboard />} /></Route><Route element={<ProtectedRoute />}><Route element={<WorkspaceShell />}><Route path="/dashboard" element={<WorkspaceDashboard />} /><Route path="/project-dashboard" element={<WorkspaceDashboard />} /><Route path="/project-manager-dashboard" element={<WorkspaceDashboard />} /><Route path="/developer-dashboard" element={<RoleLanding title="Developer workspace" detail="Focus on assigned work, code activity, reviews and personal delivery flow." />} /><Route path="/team-dashboard" element={<TeamPage />} /><Route path="/team-member-dashboard" element={<TeamPage />} /><Route path="/projects" element={<Projects />} /><Route path="/projects/:id" element={<ProjectDetails />} /><Route path="/tasks" element={<Tasks />} /><Route path="/team" element={<TeamPage />} /><Route path="/issues" element={<ComingSoonPage title="Issues" detail="Track blockers, defects and delivery risks across your projects." />} /><Route path="/sprints" element={<ComingSoonPage title="Sprints" detail="Plan sprint scope, monitor velocity and keep delivery on track." />} /><Route path="/insights" element={<InsightsPage />} /><Route path="/knowledge" element={<ComingSoonPage title="Knowledge" detail="Keep project documentation, decisions and development context connected." />} /><Route path="/settings" element={<SettingsPage />} /></Route></Route><Route path="*" element={<Navigate to="/login" replace />} /></Routes>;
+=======
+function Dashboard() {
+  const { signOut } = useAuth();
+  return <Box sx={{ minHeight: '100vh', p: { xs: 3, md: 8 }, bgcolor: '#f7f9fc' }}><Stack direction="row" justifyContent="space-between" alignItems="center"><Box><Typography variant="overline" color="primary">AI DevFlow Intelligence Suite</Typography><Typography variant="h3" sx={{ color: '#142b46', fontWeight: 800 }}>Workspace dashboard</Typography><Typography sx={{ mt: 1, color: '#718096' }}>Your authenticated project workspace is ready.</Typography></Box><Button onClick={signOut} variant="outlined">Sign out</Button></Stack></Box>;
+}
+
+export default function App() {
+  return <Routes><Route path="/login" element={<Login />} /><Route element={<ProtectedRoute />}><Route path="/dashboard" element={<Dashboard />} /></Route><Route path="*" element={<Navigate to="/login" replace />} /></Routes>;
+>>>>>>> Madhu
 }
